@@ -39,7 +39,24 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           path: project-repo
-          
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Prepare DBT project for deployment
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        run: |
+          python -m pip install pip --upgrade --upgrade-strategy eager
+          cd project-repo
+          pip install poetry==${{ env.POETRY_VERSION }}
+          poetry config virtualenvs.create false
+          poetry install --only main --no-interaction --no-ansi
+          poetry run dagster-dbt project prepare-and-package --file dagster_university/project.py
+        shell: bash
+
       - name: Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
         uses: dagster-io/dagster-cloud-action/actions/build_deploy_python_executable@v0.1
@@ -49,7 +66,7 @@ jobs:
           python_version: "${{ env.PYTHON_VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          
   dagster_cloud_docker_deploy:
     name: Docker Deploy
     runs-on: ubuntu-20.04
@@ -71,7 +88,7 @@ jobs:
           location: ${{ toJson(matrix.location) }}
           base_image: "python:${{ env.PYTHON_VERSION }}-slim"
           # Uncomment to pass through Github Action secrets as a JSON string of key-value pairs
-          # env_vars: ${{ toJson(secrets) }}
+          env_vars: ${{ toJson(secrets) }}
           organization_id: ${{ secrets.ORGANIZATION_ID }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
