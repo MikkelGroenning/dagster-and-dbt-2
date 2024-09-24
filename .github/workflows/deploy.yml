@@ -57,7 +57,7 @@ jobs:
           pip install poetry "poetry==${{ env.POETRY_VERSION }}"
           poetry config virtualenvs.create false
           poetry install --only main --no-interaction --no-ansi
-          dagster-dbt project prepare-and-package --file dagster_university/project.py
+          poetry run dagster-dbt project prepare-and-package --file dagster_university/project.py
         shell: bash
 
       - name: Python Executable Deploy
