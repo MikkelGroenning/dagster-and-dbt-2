@@ -16,6 +16,8 @@ env:
   PYTHON_VERSION: '3.12'
   DAGSTER_CLOUD_FILE: 'dagster_cloud.yaml'
   POETRY_VERSION: '1.8.3'
+  DBT_TARGET: 'prod'
+
 
 jobs:
   dagster_cloud_default_deploy:
