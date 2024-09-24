@@ -6,4 +6,4 @@ dagster_dbt_university:
       path: '../{{ env_var("DUCKDB_DATABASE", "data/staging/data.duckdb") }}'
     prod:
       type: duckdb
-      path: '{{ env_var("DUCKDB_DATABASE", "") }}'
+      path: 'md:my_db?motherduck_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pa2tlbEBncm9lbm5pbmcubmV0Iiwic2Vzc2lvbiI6Im1pa2tlbC5ncm9lbm5pbmcubmV0IiwicGF0IjoiMERhSFhPOERGMl82ZjVBQ3hicEZEX2E2bGFtUkc0ejlmamhkRGtyMXFwMCIsInVzZXJJZCI6IjFmZDM5MGU5LWFjMWEtNDdhMi1hNzAxLTI4ZmVmYWNiYmNmMSIsImlzcyI6Im1kX3BhdCIsImlhdCI6MTcyNzE3ODkyM30.698odkFkHdGoTdzmMA3QKGmq7DdrGLVzufHadBp0jjQ'
