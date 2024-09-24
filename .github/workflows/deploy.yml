@@ -51,7 +51,7 @@ jobs:
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
         run: |
-          python3 -m pip install pip --upgrade
+          python -m pip install pip --upgrade
           cd project-repo
           pip install poetry --upgrade --upgrade-strategy eager
           poetry install --no-root --no-dev
