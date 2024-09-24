@@ -40,12 +40,6 @@ jobs:
           ref: ${{ github.head_ref }}
           path: project-repo
 
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
-        if: steps.prerun.outputs.result == 'pex-deploy'
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
         run: |
@@ -66,7 +60,7 @@ jobs:
           python_version: "${{ env.PYTHON_VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
   dagster_cloud_docker_deploy:
     name: Docker Deploy
     runs-on: ubuntu-20.04
