@@ -38,18 +38,18 @@ jobs:
         with:
           dagster_cloud_file: $DAGSTER_CLOUD_FILE
 
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
       - name: Checkout for Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
           path: project-repo
-
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
-        if: steps.prerun.outputs.result == 'pex-deploy'
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
@@ -59,8 +59,8 @@ jobs:
           pip install poetry==${{ env.POETRY_VERSION }}
           poetry config virtualenvs.create false
           poetry install --only main --no-interaction --no-ansi
-          # Generate the manifest.json file
-          poetry run dagster-dbt project prepare-and-package --file dagster_university/project.py
+          
+          dagster-dbt project prepare-and-package --file dagster_university/project.py
         shell: bash
 
       - name: Python Executable Deploy
