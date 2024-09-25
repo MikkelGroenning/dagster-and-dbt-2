@@ -52,8 +52,8 @@ jobs:
 
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
-        with: 
-          env_vars: ${{ toJson(secrets) }}
+        env:
+          DUCKDB_DATABASE: ${{ secrets.DUCKDB_DATABASE }}
         run: |
           # print env vars
           echo env vars: ${{ toJson(secrets) }}
