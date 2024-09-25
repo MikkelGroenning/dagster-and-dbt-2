@@ -40,6 +40,13 @@ jobs:
         with:
           dagster_cloud_file: $DAGSTER_CLOUD_FILE
 
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        # if: steps.prerun.outputs.result == 'pex-deploy'
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+
       - name: Checkout for Python Executable Deploy
         # if: steps.prerun.outputs.result == 'pex-deploy'
         uses: actions/checkout@v3
