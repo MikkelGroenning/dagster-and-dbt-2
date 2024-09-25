@@ -11,8 +11,12 @@ env:
   DAGSTER_CLOUD_URL: "http://one-groenning.dagster.cloud"
   DAGSTER_CLOUD_API_TOKEN: ${{ secrets.DAGSTER_CLOUD_API_TOKEN }}
   ENABLE_FAST_DEPLOYS: 'true'
-  PYTHON_VERSION: '3.8'
+  PYTHON_VERSION: '3.12'
   DAGSTER_CLOUD_FILE: 'dagster_cloud.yaml'
+  POETRY_VERSION: '1.8.3'
+  DBT_TARGET: 'prod'
+  DUCKDB_DATABASE: ${{ secrets.DUCKDB_DATABASE }}
+  DAGSTER_ENVIRONMENT: 'prod'
 
 jobs:
   dagster_cloud_default_deploy:
@@ -50,29 +54,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  dagster_cloud_docker_deploy:
-    name: Docker Deploy
-    runs-on: ubuntu-20.04
-    if: needs.dagster_cloud_default_deploy.outputs.build_info
-    needs: dagster_cloud_default_deploy
-    strategy:
-      fail-fast: false
-      matrix:
-        location: ${{ fromJSON(needs.dagster_cloud_default_deploy.outputs.build_info) }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Python Executable Deploy
+        # if: steps.prerun.outputs.result == 'pex-deploy'
+        uses: dagster-io/dagster-cloud-action/actions/build_deploy_python_executable@v0.1
         with:
-          ref: ${{ github.head_ref }}
-      - name: Build and deploy to Dagster Cloud serverless
-        uses: dagster-io/dagster-cloud-action/actions/serverless_branch_deploy@v0.1
-        with:
-          dagster_cloud_api_token: ${{ secrets.DAGSTER_CLOUD_API_TOKEN }}
-          location: ${{ toJson(matrix.location) }}
-          base_image: "python:${{ env.PYTHON_VERSION }}-slim"
-          # Uncomment to pass through Github Action secrets as a JSON string of key-value pairs
-          # env_vars: ${{ toJson(secrets) }}
-          organization_id: ${{ secrets.ORGANIZATION_ID }}
+          dagster_cloud_file: "$GITHUB_WORKSPACE/project-repo/$DAGSTER_CLOUD_FILE"
+          build_output_dir: "$GITHUB_WORKSPACE/build"
+          python_version: "${{ env.PYTHON_VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

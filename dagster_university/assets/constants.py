@@ -1,6 +1,6 @@
 import os
 
-S3_BUCKET_PREFIX = os.getenv("S3_BUCKET_PREFIX", "s3://dagster-university/")
+S3_BUCKET_PREFIX = os.getenv("S3_BUCKET_PREFIX")
 
 def get_path_for_env(path: str) -> str:
     """A utility method for Dagster University. Generates a path based on the environment.
