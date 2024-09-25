@@ -19,6 +19,7 @@ env:
   POETRY_VERSION: '1.8.3'
   DBT_TARGET: 'prod'
   DUCKDB_DATABASE: ${{ secrets.DUCKDB_DATABASE }}
+  DAGSTER_ENVIRONMENT: 'dev'
 
 jobs:
   dagster_cloud_default_deploy:
