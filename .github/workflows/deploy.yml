@@ -55,9 +55,6 @@ jobs:
         env:
           DUCKDB_DATABASE: ${{ secrets.DUCKDB_DATABASE }}
         run: |
-          # print env vars
-          echo env vars: ${{ toJson(secrets) }}
-
           python -m pip install pip --upgrade
           cd project-repo
           pip install poetry==${{ env.POETRY_VERSION }}
