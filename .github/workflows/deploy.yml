@@ -13,10 +13,9 @@ concurrency:
 env:
   DAGSTER_CLOUD_URL: "http://one-groenning.dagster.cloud"
   DAGSTER_CLOUD_API_TOKEN: ${{ secrets.DAGSTER_CLOUD_API_TOKEN }}
-  ENABLE_FAST_DEPLOYS: 'false'
+  ENABLE_FAST_DEPLOYS: 'true'
   PYTHON_VERSION: '3.12'
   DAGSTER_CLOUD_FILE: 'dagster_cloud.yaml'
-  DAGSTER_ENVIRONMENT: 'prod'
   POETRY_VERSION: '1.8.3'
   DBT_TARGET: 'prod'
   DUCKDB_DATABASE: ${{ secrets.DUCKDB_DATABASE }}
