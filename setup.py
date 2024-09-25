@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-with open('requirements.txt') as f:
+with open('project-repo/requirements.txt') as f:
     required_packages = f.read().splitlines()
 
 required_packages = [req.split(';')[0] for req in required_packages]
