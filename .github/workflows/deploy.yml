@@ -12,7 +12,7 @@ concurrency:
 env:
   DAGSTER_CLOUD_URL: "http://one-groenning.dagster.cloud"
   DAGSTER_CLOUD_API_TOKEN: ${{ secrets.DAGSTER_CLOUD_API_TOKEN }}
-  ENABLE_FAST_DEPLOYS: 'true'
+  ENABLE_FAST_DEPLOYS: 'try'
   PYTHON_VERSION: '3.12'
   DAGSTER_CLOUD_FILE: 'dagster_cloud.yaml'
   POETRY_VERSION: '1.8.3'
@@ -60,8 +60,7 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --only main --no-interaction --no-ansi
           # Generate the manifest.json file
-          poetry run dbt compile --profiles-dir ./profiles
-          # Ensure the manifest.json is included in the deployment package
+          poetry run dagster-dbt project prepare-and-package --file dagster_university/project.py
         shell: bash
 
       - name: Python Executable Deploy
