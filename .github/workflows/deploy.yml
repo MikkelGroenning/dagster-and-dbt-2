@@ -15,6 +15,7 @@ env:
   ENABLE_FAST_DEPLOYS: 'false'
   PYTHON_VERSION: '3.12'
   DAGSTER_CLOUD_FILE: 'dagster_cloud.yaml'
+  DAGSTER_PROJECT_NAME: 'dagster_dbt_scaffold'
   POETRY_VERSION: '1.8.3'
   DBT_TARGET: 'prod'
 
@@ -37,12 +38,6 @@ jobs:
         with:
           dagster_cloud_file: $DAGSTER_CLOUD_FILE
 
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
-        if: steps.prerun.outputs.result == 'pex-deploy'
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
       - name: Checkout for Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
         uses: actions/checkout@v3
@@ -56,11 +51,11 @@ jobs:
           DUCKDB_DATABASE: ${{ secrets.DUCKDB_DATABASE }}
         run: |
           python -m pip install pip --upgrade
-          cd project-repo
+          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
           pip install poetry==${{ env.POETRY_VERSION }}
           poetry config virtualenvs.create false
           poetry install --only main --no-interaction --no-ansi
-          dagster-dbt project prepare-and-package --file dagster_university/project.py
+          dagster-dbt project prepare-and-package --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
         shell: bash
 
       - name: Python Executable Deploy
@@ -94,7 +89,7 @@ jobs:
           location: ${{ toJson(matrix.location) }}
           base_image: "python:${{ env.PYTHON_VERSION }}-slim"
           # Uncomment to pass through Github Action secrets as a JSON string of key-value pairs
-          env_vars: ${{ toJson(secrets) }}
+          # env_vars: ${{ toJson(secrets) }}
           organization_id: ${{ secrets.ORGANIZATION_ID }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
