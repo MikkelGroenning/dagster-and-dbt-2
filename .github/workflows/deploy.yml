@@ -61,7 +61,6 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --only main --no-interaction --no-ansi
           dagster-dbt project prepare-and-package --file dagster_university/project.py
-          poetry export -f requirements.txt --without-hashes --output ../requirements.txt
         shell: bash
 
       - name: Python Executable Deploy
@@ -95,7 +94,7 @@ jobs:
           location: ${{ toJson(matrix.location) }}
           base_image: "python:${{ env.PYTHON_VERSION }}-slim"
           # Uncomment to pass through Github Action secrets as a JSON string of key-value pairs
-          # env_vars: ${{ toJson(secrets) }}
+          env_vars: ${{ toJson(secrets) }}
           organization_id: ${{ secrets.ORGANIZATION_ID }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
