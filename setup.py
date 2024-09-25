@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 with open('project-repo/requirements.txt') as f:
     required_packages = f.read().splitlines()
 
-required_packages = [req.split(';')[0] for req in required_packages]
+#required_packages = [req.split(';')[0] for req in required_packages]
 
 setup(
     name="dagster_university",
