@@ -1,6 +1,6 @@
 
 [tool.poetry]
-name = "dagster-university"
+name = "dagster_university"
 version = "0.1.0"
 description = ""
 authors = ["Mikkel Grønning <mikkel@groenning.net>"]

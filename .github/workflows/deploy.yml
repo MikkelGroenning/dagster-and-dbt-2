@@ -61,7 +61,7 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --only main --no-interaction --no-ansi
           dagster-dbt project prepare-and-package --file dagster_university/project.py
-          poetry run poetry2setup > setup.py
+          poetry export -f requirements.txt --without-hashes --output requirements.txt
         shell: bash
 
       - name: Python Executable Deploy
