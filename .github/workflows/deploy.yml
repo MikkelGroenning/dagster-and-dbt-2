@@ -52,7 +52,12 @@ jobs:
 
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
+        with: 
+          env_vars: ${{ toJson(secrets) }}
         run: |
+          # print env vars
+          echo env vars: ${{ toJson(secrets) }}
+
           python -m pip install pip --upgrade
           cd project-repo
           pip install poetry==${{ env.POETRY_VERSION }}
@@ -85,9 +90,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
-      - name: print env
-        run: |
-          echo ${{ toJson(secrets) }}
       - name: Build and deploy to Dagster Cloud serverless
         uses: dagster-io/dagster-cloud-action/actions/serverless_prod_deploy@v0.1
         with:
