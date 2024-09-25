@@ -13,6 +13,9 @@ dagster-duckdb = "^0.24.6"
 dagster-duckdb-pandas = "^0.24.6"
 dagster-dbt = "^0.24.7"
 dagster-cloud = "^1.8.7"
+dbt-duckdb = "^1.8.3"
+dbt-core = "^1.8.6"
+duckdb = "1.1.0"
 dagit = "^1.8.6"
 requests = "^2.32.3"
 pandas = "^2.2.2"
@@ -26,13 +29,13 @@ kaleido = "0.2.1"
 pyarrow = "^17.0.0"
 smart-open = "^7.0.4"
 boto3 = "^1.35.20"
-dbt-duckdb = "^1.8.3"
-dbt-core = "^1.8.6"
-duckdb = "1.1.0"
+poetry2setup = "^1.1.0"
+
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
+dagster-webserver = "^1.8.8"
 
 [build-system]
 requires = ["poetry-core"]
