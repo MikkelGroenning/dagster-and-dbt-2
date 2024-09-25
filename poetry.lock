@@ -475,24 +475,6 @@ files = [
 ]
 
 [[package]]
-name = "dagit"
-version = "1.8.8"
-description = "Web UI for dagster."
-optional = false
-python-versions = "<3.13,>=3.8"
-files = [
-    {file = "dagit-1.8.8-py3-none-any.whl", hash = "sha256:9c4326293fede360170da32026c5fee55bc54203d86e1367515ff7afead8138d"},
-    {file = "dagit-1.8.8.tar.gz", hash = "sha256:227336c48e17cfa2203e428105f3f02d2c3754bc2a83f34ddd57ceb303ef97d6"},
-]
-
-[package.dependencies]
-dagster-webserver = "1.8.8"
-
-[package.extras]
-notebook = ["dagster-webserver[notebook] (==1.8.8)"]
-test = ["dagster-webserver[test] (==1.8.8)"]
-
-[[package]]
 name = "dagster"
 version = "1.8.8"
 description = "Dagster is an orchestration platform for the development, production, and observation of data assets."
@@ -3995,4 +3977,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "4237e3cfea74ad0b0bba863946cf80098d1413e8bb8cb4b749adb5eb4640e91a"
+content-hash = "87897ba605772377d1d41fd2c718d07215d41126295112330bcc32ba71fdd5aa"

@@ -15,7 +15,6 @@ dagster-dbt = "^0.24.7"
 dbt-duckdb = "^1.8.3"
 dagster-duckdb-pandas = "^0.24.6"
 duckdb = "1.1.0"
-dagit = "^1.8.6"
 
 requests = "^2.32.3"
 pandas = "^2.2.2"
