@@ -1,42 +1,46 @@
 version: 2
 
 models:
-  - name: stg_trips
-    description: The trips source table, cleaned up and decoded
+  - name: stg_serivce_request
+    schema: STG_DATA
+    description: The service request table from the nyc311 dataset
     columns:
-      - name: pickup_datetime
-        description: The pickup datetime
-      - name: dropoff_datetime
-        description: The dropoff datetime
-      - name: passenger_count
-        description: The passenger count
-      - name: trip_distance
-        description: The trip distance
-      - name: pickup_zone_id
-        description: The pickup location id
-      - name: dropoff_zone_id
-        description: The dropoff location id
-      - name: fare_amount
-        description: The fare amount
-      - name: total_amount
-        description: The total amount
-  - name: stg_zones
-    description: The taxi zones, with enriched records and additional flags
-    columns:
-      - name: zone_id
-        description: The location id
-        tests:
-          - not_null
-      - name: borough
-        description: The borough
-        tests:
-          - accepted_values:
-              values:
-                - Manhattan
-                - Bronx
-                - Brooklyn
-                - Queens
-                - Staten Island
-                - EWR
-      - name: zone
-        description: The zone
+      - name: Unique Key	
+      - name: Created Date	
+      - name: Closed Date	
+      - name: Agency	
+      - name: Agency Name	
+      - name: Complaint Type	
+      - name: Descriptor	
+      - name: Location Type	
+      - name: Incident Zip	
+      - name: Incident Address	
+      - name: Street Name	
+      - name: Cross Street 1	
+      - name: Cross Street 2	
+      - name: Intersection Street 1	
+      - name: Intersection Street 2
+      - name: Address Type	
+      - name: City
+      - name: Landmark
+      - name: Facility Type
+      - name: Status
+      - name: Due Date
+      - name: Resolution Description
+      - name: Resolution Action Updated Date	
+      - name: Community Board	BBL	Borough
+      - name: X Coordinate (State Plane)
+      - name: Y Coordinate (State Plane)	
+      - name: Open Data Channel Type
+      - name: Park Facility Name
+      - name: Park Borough
+      - name: Vehicle Type	
+      - name: Taxi Company Borough
+      - name: Taxi Pick Up Location
+      - name: Bridge Highway Name
+      - name: Bridge Highway Direction	
+      - name: Road Ramp	
+      - name: Bridge Highway Segment	
+      - name: Latitude	
+      - name: Longitude	
+      - name: Location

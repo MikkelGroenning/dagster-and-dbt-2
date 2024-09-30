@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: raw_serivce_requests
+    schema: raw_data
+    tables:
+      - name: service_requests

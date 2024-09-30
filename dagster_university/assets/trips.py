@@ -7,8 +7,8 @@ import requests
 
 from . import constants
 
-from ..resources import smart_open_config
-from ..partitions import monthly_partition
+from dagster_university.resources import smart_open_config
+from dagster_university.partitions import hourly_partition
 
 @asset(
     group_name="raw_files",
@@ -61,7 +61,7 @@ def taxi_zones(context, database: DuckDBResource):
 
 ## Lesson 3, 8
 @asset(
-    partitions_def=monthly_partition,
+    partitions_def=hourly_partition,
     group_name="raw_files",
     compute_kind="DuckDB",
 )
@@ -91,7 +91,7 @@ def taxi_trips_file(context) -> MaterializeResult:
 ## Lesson 4, 8, 6
 @asset(
     deps=["taxi_trips_file"],
-    partitions_def=monthly_partition,
+    partitions_def=hourly_partition,
     group_name="ingested",
     compute_kind="DuckDB",
 )
